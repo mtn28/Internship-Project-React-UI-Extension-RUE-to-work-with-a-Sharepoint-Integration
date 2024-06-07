@@ -58,7 +58,7 @@ Dive deeper into the APIs and tools:
 - [Microsoft Graph API for SharePoint](https://learn.microsoft.com/en-us/graph/api/resources/sharepoint?view=graph-rest-1.0)
 - [Explore Postman Collections](https://www.postman.com/hubspot)
 
-
+##
 # React UI Extension to work with a Sharepoint Integration
 
 ## Getting started
