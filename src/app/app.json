@@ -1,7 +1,7 @@
 {
   "name": "Internship Project",
-  "description": "This is an example private app that shows a custom card on the Contact record tab built with React-based frontend. This card demonstrates a simple handshake with HubSpot's serverless backend.",
-  "uid": "get_started_app",
+  "description": "HubSpot's UI Extensions allow creating custom CRM UI cards, integrating internal and external data. Built with React for the front end and HubSpot's serverless functions for the backend, using the HubSpot CLI for development and deployment. The project aims to sync data between SharePoint and HubSpot CRM using React.",
+  "uid": "internship_project",
   "scopes": [
     "crm.objects.contacts.read",
     "crm.objects.contacts.write"
