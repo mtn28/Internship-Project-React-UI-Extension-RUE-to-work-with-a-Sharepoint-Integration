@@ -6,6 +6,8 @@
   <img src="https://img.shields.io/badge/-SharePoint-0078D4?style=for-the-badge&logo=microsoft-sharepoint&logoColor=white"/>
 </p>
 
+##
+
 ## 📚 Overview
 
 Leverage HubSpot's UI Extensions to create custom CRM UI cards that integrate seamlessly with both internal and external data. This project utilizes React for the front end and HubSpot's serverless functions for the backend, aiming to enhance data synchronization between SharePoint and HubSpot CRM.
