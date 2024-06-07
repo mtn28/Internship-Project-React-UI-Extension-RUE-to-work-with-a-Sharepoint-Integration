@@ -58,7 +58,8 @@ Dive deeper into the APIs and tools:
 - [Microsoft Graph API for SharePoint](https://learn.microsoft.com/en-us/graph/api/resources/sharepoint?view=graph-rest-1.0)
 - [Explore Postman Collections](https://www.postman.com/hubspot)
 
-### Getting started
+##
+# Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
