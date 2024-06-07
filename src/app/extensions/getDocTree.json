@@ -1,0 +1,16 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Integration with SharePoint",
+    "uid": "doctree1",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "getDocTree.jsx"
+    },
+    "objectTypes": [
+      {
+        "name": "contacts"
+      }
+    ]
+  }
+}

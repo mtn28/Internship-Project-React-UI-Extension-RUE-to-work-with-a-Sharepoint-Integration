@@ -1,0 +1,22 @@
+{
+    "appFunctions": {
+      "getDocTree": {
+        "file": "getDocTree.js",
+        "secrets": [],
+        "endpoint": { 
+           "path": "/list-docs",
+           "method": ["GET"]
+         }
+      },
+      "download": {
+        "file": "download.js",
+        "secrets": [],
+        "endpoint": {
+          "path": "/download",
+          "method": [
+            "GET"
+          ]
+        }
+      }
+    }
+  }

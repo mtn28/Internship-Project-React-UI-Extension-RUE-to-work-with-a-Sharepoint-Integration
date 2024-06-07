@@ -1,0 +1,16 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Authentication with SharePoint",
+    "uid": "auth_card",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "SharePoint.jsx"
+    },
+    "objectTypes": [
+      {
+        "name": "contacts"
+      }
+    ]
+  }
+}

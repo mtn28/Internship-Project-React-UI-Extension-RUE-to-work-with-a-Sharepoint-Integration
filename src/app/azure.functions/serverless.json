@@ -1,0 +1,9 @@
+{
+  "appFunctions": {
+    "fetchFiles": {
+      "file": "fetchFiles.js",
+      "secrets": [],
+      "npmPackages": ["xml2js"]
+    }
+  }
+}

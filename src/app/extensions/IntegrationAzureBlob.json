@@ -1,0 +1,16 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Integration with Azure Blob Storage",
+    "uid": "main_card",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "IntegrationAzureBlob.tsx"
+    },
+    "objectTypes": [
+      {
+        "name": "contacts"
+      }
+    ]
+  }
+}
