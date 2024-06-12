@@ -7,7 +7,7 @@ exports.main = async (context = {}) => {
     };
 
     const { itemId, email } = context.parameters;
-
+    
     if (!email) {
         return {
             statusCode: 404,
@@ -29,36 +29,33 @@ exports.main = async (context = {}) => {
             { headers }
         );
 
-        // Log the entire response object to understand its structure
         console.log('Full response:', response);
 
-        // Access the data field correctly from the response
         const { data } = response;
-        
-        // Log the data to check if it's being accessed correctly
         console.log('Data received:', data);
 
-        // Ensure downloadUrl is present in the data object
         const downloadUrl = data.downloadUrl;
+        console.log("Download URL:", downloadUrl);
 
         if (!downloadUrl || downloadUrl === 'undefined') {
             throw new Error('Download URL is undefined or missing');
         }
 
         const decodeDownloadUrl = decodeURIComponent(downloadUrl);
+        console.log("Decoded Download URL:", decodeDownloadUrl);
 
         return {
             statusCode: 200,
             body: {
-                message: 'Download url successfully fetched!',
+                message: 'Download URL successfully fetched!',
                 data: decodeDownloadUrl
             }
         };
     } catch (error) {
-        console.error(`Error fetching downloadUrl for itemId: ${itemId}`, error.message);
+        console.error(`Error fetching download URL for itemId: ${itemId}`, error.message);
         return {
             statusCode: 500,
-            body: { message: `Error fetching downloadUrl: ${error.message}` }
+            body: { message: `Error fetching download URL: ${error.message}` }
         };
     }
 };

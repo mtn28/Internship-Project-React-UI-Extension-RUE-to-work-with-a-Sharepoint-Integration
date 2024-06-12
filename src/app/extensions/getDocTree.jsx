@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Input, Link, hubspot, Flex, Table, TableHead, TableRow, TableHeader, TableBody, TableCell } from '@hubspot/ui-extensions';
 
 const headerStyle = {
@@ -19,43 +19,52 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
   const [objectType, setObjectType] = useState('');
   const [objectId, setObjectId] = useState('');
   const [data, setData] = useState(null);
+  const [downloadUrls, setDownloadUrls] = useState({});
 
   const handleDownload = async (itemId) => {
-    runServerless({ 
-      name: 'download', 
-      parameters: { itemId: itemId, email: email } 
-    }).then((result) => {
+    try {
+      const result = await runServerless({
+        name: 'download',
+        parameters: { itemId, email }
+      });
+
       if (result.response.statusCode === 200) {
-        console.log(result.response.body);
-        sendAlert({ message: 'Download URL fetched successfully!', type: 'success' });
+        const fetchedDownloadUrl = result.response.body.data.trim();
+        console.log('Download URL:', fetchedDownloadUrl);
+        sendAlert({ message: 'URL de download obtido com sucesso!', type: 'success' });
+        setDownloadUrls(prevUrls => ({ ...prevUrls, [itemId]: fetchedDownloadUrl }));
       } else {
-        sendAlert({ message: 'Error fetching download URL...', type: 'error' });
+        sendAlert({ message: 'Erro ao obter URL de download...', type: 'error' });
       }
-    }).catch(error => {
-      sendAlert({ message: 'Error fetching download URL...', type: 'error' });
-    });
+    } catch (error) {
+      sendAlert({ message: 'Erro ao obter URL de download...', type: 'error' });
+      console.error('Erro:', error);
+    }
   };
 
   const handleClick = async () => {
-    runServerless({ 
-      name: 'getDocTree', 
-      parameters: { 
-        email: email, 
-        hubspotObjectType: objectType, 
-        hubspotObjectId: objectId 
-      } 
-    }).then((result) => {
+    try {
+      const result = await runServerless({
+        name: 'getDocTree',
+        parameters: {
+          email,
+          hubspotObjectType: objectType,
+          hubspotObjectId: objectId
+        }
+      });
+
       if (result.response.statusCode === 200) {
         setData(result.response.body.data);
         sendAlert({ message: 'Lista carregada com sucesso', type: 'success' });
       } else if (result.response.statusCode === 401) {
-        sendAlert({ message: 'Unauthenticated...', type: 'error' });
+        sendAlert({ message: 'Não autenticado...', type: 'error' });
       } else {
-        sendAlert({ message: 'Error fetching data...', type: 'error' });
+        sendAlert({ message: 'Erro ao buscar dados...', type: 'error' });
       }
-    }).catch(error => {
-      sendAlert({ message: 'Error fetching data...', type: 'error' });
-    });
+    } catch (error) {
+      sendAlert({ message: 'Erro ao buscar dados...', type: 'error' });
+      console.error('Erro:', error);
+    }
   };
 
   const handleUploadClick = () => {
@@ -127,7 +136,13 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
                 <TableCell>{getFileExtension(item)}</TableCell>
                 <TableCell>{new Date(item.createdDateTime).toLocaleDateString()}</TableCell>
                 <TableCell>
-                  <Button onClick={() => handleDownload(item.id)}>Download</Button>
+                  {downloadUrls[item.id] ? (
+                    <Link href={downloadUrls[item.id]} openInNewTab>
+                      Download
+                    </Link>
+                  ) : (
+                    <Button onClick={() => handleDownload(item.id)}>Get Download Link</Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
