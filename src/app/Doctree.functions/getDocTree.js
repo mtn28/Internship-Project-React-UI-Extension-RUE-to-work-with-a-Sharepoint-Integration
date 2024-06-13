@@ -22,18 +22,14 @@ exports.main = async (context = {}) => {
         };
     }
 
-    if (!hubspotObjectId) {
-        return {
-            statusCode: 404,
-            body: { message: 'ObjectId is missing...' }
-        };
+    let requestUrl = `${url}?email=${email}&hubspotObjectType=${hubspotObjectType}`;
+    
+    if (hubspotObjectId) {
+        requestUrl += `&hubspotObjectId=${hubspotObjectId}`;
     }
 
     try {
-        const response = await axios.get(
-            `${url}?email=${email}&hubspotObjectType=${hubspotObjectType}&hubspotObjectId=${hubspotObjectId}`, 
-            { headers }
-        );
+        const response = await axios.get(requestUrl, { headers });
 
         const files = response.data.data;
 

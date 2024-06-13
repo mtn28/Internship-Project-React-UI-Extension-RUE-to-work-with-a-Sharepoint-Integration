@@ -136,12 +136,16 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
                 <TableCell>{getFileExtension(item)}</TableCell>
                 <TableCell>{new Date(item.createdDateTime).toLocaleDateString()}</TableCell>
                 <TableCell>
-                  {downloadUrls[item.id] ? (
-                    <Link href={downloadUrls[item.id]} openInNewTab>
-                      Download
-                    </Link>
+                  {item.type === 'file' ? (
+                    downloadUrls[item.id] ? (
+                      <Link href={downloadUrls[item.id]} openInNewTab>
+                        Download
+                      </Link>
+                    ) : (
+                      <Button onClick={() => handleDownload(item.id)}>Get Download Link</Button>
+                    )
                   ) : (
-                    <Button onClick={() => handleDownload(item.id)}>Get Download Link</Button>
+                    'N/A'
                   )}
                 </TableCell>
               </TableRow>
