@@ -69,9 +69,9 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
 
   const handleUploadClick = () => {
     openIframe({
-      uri: "https://144183980.hs-sites-eu1.com/upload",
-      height: 640,
-      width: 480,
+      uri: "https://upload-to-sharepoint.vercel.app/",
+      height: 900,
+      width: 900,
     });
   };
 
