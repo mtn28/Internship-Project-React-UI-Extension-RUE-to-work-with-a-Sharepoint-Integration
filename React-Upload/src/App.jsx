@@ -160,13 +160,13 @@ function App() {
             <Grid item style={{ marginLeft: 'auto' }}>
               <Box style={{ display: 'flex', gap: '10px', margin: '10px' }}>
                 <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Microsoft_logo_-_2012_%28vertical%29.svg" alt="Microsoft" style={iconStyle} />
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Microsoft_logo_-_2012_%28vertical%29.svg" alt="Microsoft" className="icon" />
                 </a>
                 <a href="https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration" target="_blank" rel="noopener noreferrer">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Microsoft_Office_SharePoint_%282019%E2%80%93present%29.svg" alt="SharePoint" style={iconStyle} />
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Microsoft_Office_SharePoint_%282019%E2%80%93present%29.svg" alt="SharePoint" className="icon" />
                 </a>
                 <a href="https://www.hubspot.com" target="_blank" rel="noopener noreferrer">
-                  <img src="https://i.pinimg.com/originals/68/9a/ba/689abaa7ca6cdf1f95c768ef4af64001.png" alt="HubSpot" style={iconStyle} />
+                  <img src="https://i.pinimg.com/originals/68/9a/ba/689abaa7ca6cdf1f95c768ef4af64001.png" alt="HubSpot" className="icon" />
                 </a>
               </Box>
             </Grid>
@@ -250,10 +250,6 @@ const buttonStyle = {
   color: '#fff',
 };
 
-const iconStyle = {
-  width: '40px',
-  height: '40px',
-  objectFit: 'contain',
-};
+
 
 export default App;

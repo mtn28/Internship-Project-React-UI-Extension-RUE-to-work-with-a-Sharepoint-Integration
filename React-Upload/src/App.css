@@ -58,3 +58,30 @@ button:focus {
   top: 10px;
   right: 10px;
 }
+
+/* Logo styles */
+.logo {
+  width: 130px; /* Aumentar a largura para 130px */
+  height: auto; /* Manter a proporção */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: transform 0.2s ease-in-out; /* Adiciona transição para o efeito de zoom */
+}
+
+.logo:hover {
+  transform: scale(1.05); /* Efeito de zoom quando o mouse passa por cima */
+}
+
+/* Icon styles */
+.icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: transform 0.2s ease-in-out; /* Adiciona transição para o efeito de zoom */
+}
+
+.icon:hover {
+  transform: scale(1.05); /* Efeito de zoom quando o mouse passa por cima */
+}
+
