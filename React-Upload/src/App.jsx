@@ -61,71 +61,25 @@ function App() {
   };
 
   return (
-    <Container maxWidth="md" className="mt-5">
-      <Paper elevation={6} className="p-5" style={paperStyle}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" style={{ position: 'relative' }}>
-          <Typography variant="h4" gutterBottom>
-            Upload to SharePoint
-          </Typography>
-          <a href="https://findmore.solutions/" target="_blank" rel="noopener noreferrer">
-            <img src="/logo.png" alt="Logo" className="logo" /> {/* Adicione a classe CSS logo */}
-          </a>
-        </Box>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Email:"
-              variant="outlined"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={textFieldStyle}
-              InputProps={{
-                classes: {
-                  root: 'customTextFieldRoot',
-                  focused: 'customTextFieldFocused',
-                  notchedOutline: 'customNotchedOutline',
-                },
-              }}
-              InputLabelProps={{
-                classes: {
-                  root: 'customLabelRoot',
-                  focused: 'customLabelFocused',
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="HubSpot Object Type:"
-              variant="outlined"
-              value={hubspotObjectType}
-              onChange={(e) => setHubspotObjectType(e.target.value)}
-              style={textFieldStyle}
-              InputProps={{
-                classes: {
-                  root: 'customTextFieldRoot',
-                  focused: 'customTextFieldFocused',
-                  notchedOutline: 'customNotchedOutline',
-                },
-              }}
-              InputLabelProps={{
-                classes: {
-                  root: 'customLabelRoot',
-                  focused: 'customLabelFocused',
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
+    <div className="main-container">
+      <Container maxWidth="md" className="mt-5">
+        <Paper elevation={6} className="paper-container" style={paperStyle}>
+          <Box display="flex" justifyContent="space-between" alignItems="center" style={{ position: 'relative' }}>
+            <Typography variant="h4" gutterBottom>
+              <strong>Upload to SharePoint</strong>
+            </Typography>
+            <a href="https://findmore.solutions/" target="_blank" rel="noopener noreferrer">
+              <img src="/logo.png" alt="Logo" className="logo" /> {/* Adicione a classe CSS logo */}
+            </a>
+          </Box>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="HubSpot Object ID:"
+                label="Email:"
                 variant="outlined"
-                value={hubspotObjectId}
-                onChange={(e) => setHubspotObjectId(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 style={textFieldStyle}
                 InputProps={{
                   classes: {
@@ -141,85 +95,133 @@ function App() {
                   },
                 }}
               />
-            </Box>
-          </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="HubSpot Object Type:"
+                variant="outlined"
+                value={hubspotObjectType}
+                onChange={(e) => setHubspotObjectType(e.target.value)}
+                style={textFieldStyle}
+                InputProps={{
+                  classes: {
+                    root: 'customTextFieldRoot',
+                    focused: 'customTextFieldFocused',
+                    notchedOutline: 'customNotchedOutline',
+                  },
+                }}
+                InputLabelProps={{
+                  classes: {
+                    root: 'customLabelRoot',
+                    focused: 'customLabelFocused',
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <TextField
+                  fullWidth
+                  label="HubSpot Object ID:"
+                  variant="outlined"
+                  value={hubspotObjectId}
+                  onChange={(e) => setHubspotObjectId(e.target.value)}
+                  style={textFieldStyle}
+                  InputProps={{
+                    classes: {
+                      root: 'customTextFieldRoot',
+                      focused: 'customTextFieldFocused',
+                      notchedOutline: 'customNotchedOutline',
+                    },
+                  }}
+                  InputLabelProps={{
+                    classes: {
+                      root: 'customLabelRoot',
+                      focused: 'customLabelFocused',
+                    },
+                  }}
+                />
+              </Box>
+            </Grid>
 
-          <Grid container item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleUpload}
-                startIcon={<PublishIcon />}
-                className={isButtonClicked ? 'buttonClicked' : ''}
-                style={buttonStyle}
+            <Grid container item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleUpload}
+                  startIcon={<PublishIcon />}
+                  className={isButtonClicked ? 'buttonClicked' : ''}
+                  style={buttonStyle}
+                >
+                  Upload
+                </Button>
+              </Grid>
+              <Grid item style={{ marginLeft: 'auto' }}>
+                <Box style={{ display: 'flex', gap: '10px', margin: '10px' }}>
+                  <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Microsoft_logo_-_2012_%28vertical%29.svg" alt="Microsoft" className="icon" />
+                  </a>
+                  <a href="https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration" target="_blank" rel="noopener noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Microsoft_Office_SharePoint_%282019%E2%80%93present%29.svg" alt="SharePoint" className="icon" />
+                  </a>
+                  <a href="https://www.hubspot.com" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.pinimg.com/originals/68/9a/ba/689abaa7ca6cdf1f95c768ef4af64001.png" alt="HubSpot" className="icon" />
+                  </a>
+                </Box>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12}>
+              <div
+                {...getRootProps({ className: `dropzone ${isUploading ? 'uploading' : ''}` })}
+                style={{
+                  ...dropzoneStyle,
+                  backgroundColor: isDragActive ? 'rgba(63, 151, 157, 0.2)' : '#ffdcc7',
+                  transition: 'background-color 0.3s, border-color 0.3s',
+                }}
               >
-                Upload
-              </Button>
+                <input {...getInputProps()} />
+                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                  <CloudUploadIcon style={{ fontSize: 50, color: '#ff5722', transition: 'transform 0.3s', transform: isDragActive ? 'scale(1.2)' : 'scale(1)' }} />
+                  <Typography variant="body1" style={{ marginTop: '1rem', transition: 'color 0.3s', color: isDragActive ? '#3f979d' : '#ff5722' }}>
+                    Drag and drop files here, or click to select files
+                  </Typography>
+                </Box>
+              </div>
             </Grid>
-            <Grid item style={{ marginLeft: 'auto' }}>
-              <Box style={{ display: 'flex', gap: '10px', margin: '10px' }}>
-                <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Microsoft_logo_-_2012_%28vertical%29.svg" alt="Microsoft" className="icon" />
-                </a>
-                <a href="https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration" target="_blank" rel="noopener noreferrer">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Microsoft_Office_SharePoint_%282019%E2%80%93present%29.svg" alt="SharePoint" className="icon" />
-                </a>
-                <a href="https://www.hubspot.com" target="_blank" rel="noopener noreferrer">
-                  <img src="https://i.pinimg.com/originals/68/9a/ba/689abaa7ca6cdf1f95c768ef4af64001.png" alt="HubSpot" className="icon" />
-                </a>
-              </Box>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={12}>
-            <div
-              {...getRootProps({ className: `dropzone ${isUploading ? 'uploading' : ''}` })}
-              style={{
-                ...dropzoneStyle,
-                backgroundColor: isDragActive ? 'rgba(63, 151, 157, 0.2)' : '#ffdcc7',
-                transition: 'background-color 0.3s, border-color 0.3s',
-              }}
-            >
-              <input {...getInputProps()} />
-              <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                <CloudUploadIcon style={{ fontSize: 50, color: '#ff5722', transition: 'transform 0.3s', transform: isDragActive ? 'scale(1.2)' : 'scale(1)' }} />
-                <Typography variant="body1" style={{ marginTop: '1rem', transition: 'color 0.3s', color: isDragActive ? '#3f979d' : '#ff5722' }}>
-                  Drag and drop files here, or click to select files
-                </Typography>
-              </Box>
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h5">Selected Files:</Typography>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Size</TableCell>
-                    <TableCell>Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {files.map((file, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{file.name}</TableCell>
-                      <TableCell>{formatFileSize(file.size)}</TableCell>
-                      <TableCell>
-                        <IconButton onClick={() => handleRemoveFile(file)}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
+            <Grid item xs={12}>
+              <Typography variant="h5">Selected Files:</Typography>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Size</TableCell>
+                      <TableCell>Actions</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {files.map((file, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{file.name}</TableCell>
+                        <TableCell>{formatFileSize(file.size)}</TableCell>
+                        <TableCell>
+                          <IconButton onClick={() => handleRemoveFile(file)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+        </Paper>
+      </Container>
+    </div>
   );
 }
 
@@ -249,7 +251,5 @@ const buttonStyle = {
   backgroundColor: '#3f979d', // SharePoint blue
   color: '#fff',
 };
-
-
 
 export default App;

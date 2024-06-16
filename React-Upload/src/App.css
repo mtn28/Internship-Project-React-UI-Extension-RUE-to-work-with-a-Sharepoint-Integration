@@ -6,6 +6,75 @@
   text-align: center;
 }
 
+/* Main container styles */
+.main-container {
+  background: linear-gradient(135deg, #0078d4 0%, #005a9e 33%, #ff7a59 66%, #31797c 100%);
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: rotateBG 6s linear infinite, pulseBG 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes rotateBG {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseBG {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Paper styles */
+.paper-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 20px;
+  padding: 20px; /* Adicionar padding para manter o espaçamento interno */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  border-radius: 15px;
+  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
+  animation: backgroundAnimation 10s infinite alternate;
+  z-index: 2;
+  position: relative;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
+  }
+  100% {
+    background: linear-gradient(135deg, #f7f7f7 0%, #ffffff 100%);
+  }
+}
+
 /* Dropzone styles */
 .dropzone:hover {
   background-color: #ffab91; /* Lighter orange for HubSpot */
@@ -57,15 +126,6 @@ button:focus {
   position: absolute;
   top: 10px;
   right: 10px;
-}
-
-/* Logo styles */
-.logo {
-  width: 130px; /* Aumentar a largura para 130px */
-  height: auto; /* Manter a proporção */
-  position: absolute;
-  top: 10px;
-  right: 10px;
   transition: transform 0.2s ease-in-out; /* Adiciona transição para o efeito de zoom */
 }
 
@@ -84,4 +144,3 @@ button:focus {
 .icon:hover {
   transform: scale(1.05); /* Efeito de zoom quando o mouse passa por cima */
 }
-
