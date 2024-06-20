@@ -1,0 +1,19 @@
+.auth-button {
+    font-size: 1.2rem;  /* Diminuiu o tamanho da fonte */
+    padding: 10px 20px;  /* Diminuiu o padding */
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background-color: #ff7a59;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.auth-button:hover {
+    transform: scale(1.1);
+    background-color: #31797c;
+}

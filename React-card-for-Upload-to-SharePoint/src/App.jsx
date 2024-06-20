@@ -15,10 +15,12 @@ import {
   TableHead,
   TableRow,
   IconButton,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import { CloudUpload as CloudUploadIcon, Delete as DeleteIcon, Publish as PublishIcon } from '@mui/icons-material';
-import axios from 'axios';
 import './App.css';
+import { uploadFile } from './uploadFile';
 
 const formatFileSize = (size) => {
   if (size < 1024) return `${size} B`;
@@ -27,13 +29,26 @@ const formatFileSize = (size) => {
   else return `${(size / 1073741824).toFixed(2)} GB`;
 };
 
+const validateEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(String(email).toLowerCase());
+};
+
+const validateObjectId = (id) => {
+  const re = /^[0-9A-Za-z]+$/;
+  return re.test(String(id));
+};
+
 function App() {
   const [files, setFiles] = useState([]);
   const [email, setEmail] = useState('');
-  const [hubspotObjectType, setHubspotObjectType] = useState('');
   const [hubspotObjectId, setHubspotObjectId] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [alert, setAlert] = useState({ open: false, severity: '', message: '' });
+  const [secondAlert, setSecondAlert] = useState({ open: false, severity: '', message: '' });
+
+  const [accessToken] = useState(''); // Armazena o token de acesso
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -42,32 +57,64 @@ function App() {
   });
 
   const handleUpload = async () => {
+    let errorMessages = [];
+
+    if (!email) {
+      errorMessages.push('Email is required.');
+    }
+
+    if (!hubspotObjectId) {
+      errorMessages.push('HubSpot Object ID is required.');
+    }
+
+    if (email && !validateEmail(email)) {
+      errorMessages.push('Invalid email address.');
+    }
+
+    if (hubspotObjectId && !validateObjectId(hubspotObjectId)) {
+      errorMessages.push('Invalid HubSpot Object ID.');
+    }
+
+    if (files.length === 0) {
+      errorMessages.push('No files selected for upload.');
+    }
+
+    if (errorMessages.length > 0) {
+      setAlert({ open: true, severity: 'error', message: errorMessages.join(' ') });
+      return;
+    }
+
     setIsButtonClicked(true);
     setIsUploading(true);
 
-    try {
-      const response = await axios.post(`https://<YOUR_API_BASE_URL>/upload`, {
-        email,
-        parentFolderId: hubspotObjectId,
-        files: files.map(file => ({
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          content: file
-        }))
-      });
+    const result = await uploadFile(files, email, hubspotObjectId, accessToken);
 
-      console.log('Upload successful:', response.data);
-    } catch (error) {
-      console.error('Upload failed:', error);
-    } finally {
-      setIsUploading(false);
-      setIsButtonClicked(false);
+    if (result.success) {
+      setAlert({ open: true, severity: 'success', message: 'Files uploaded successfully.' });
+      setFiles([]); // Limpa a lista de arquivos após upload bem-sucedido
+    } else {
+      if (result.error.includes('In alternative, you are not authenticated or your session has expired. Please log in again using the Microsoft authentication extension card.')) {
+        setSecondAlert({ open: true, severity: 'error', message: 'Upload failed. Please check your email and ID.' });
+        setAlert({ open: true, severity: 'error', message: result.error });
+      } else {
+        setAlert({ open: true, severity: 'error', message: result.error });
+      }
     }
+
+    setIsUploading(false);
+    setIsButtonClicked(false);
   };
 
   const handleRemoveFile = (file) => {
     setFiles(files.filter((f) => f.path !== file.path));
+  };
+
+  const handleCloseAlert = () => {
+    setAlert({ ...alert, open: false });
+  };
+
+  const handleCloseSecondAlert = () => {
+    setSecondAlert({ ...secondAlert, open: false });
   };
 
   return (
@@ -90,29 +137,6 @@ function App() {
                 variant="outlined"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                style={textFieldStyle}
-                InputProps={{
-                  classes: {
-                    root: 'customTextFieldRoot',
-                    focused: 'customTextFieldFocused',
-                    notchedOutline: 'customNotchedOutline',
-                  },
-                }}
-                InputLabelProps={{
-                  classes: {
-                    root: 'customLabelRoot',
-                    focused: 'customLabelFocused',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="HubSpot Object Type:"
-                variant="outlined"
-                value={hubspotObjectType}
-                onChange={(e) => setHubspotObjectType(e.target.value)}
                 style={textFieldStyle}
                 InputProps={{
                   classes: {
@@ -164,8 +188,9 @@ function App() {
                   startIcon={<PublishIcon />}
                   className={isButtonClicked ? 'buttonClicked' : ''}
                   style={buttonStyle}
+                  disabled={isUploading}
                 >
-                  Upload
+                  {isUploading ? 'Uploading...' : 'Upload'}
                 </Button>
               </Grid>
               <Grid item style={{ marginLeft: 'auto' }}>
@@ -203,34 +228,46 @@ function App() {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h5">Selected Files:</Typography>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Size</TableCell>
-                      <TableCell>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {files.map((file, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{file.name}</TableCell>
-                        <TableCell>{formatFileSize(file.size)}</TableCell>
-                        <TableCell>
-                          <IconButton onClick={() => handleRemoveFile(file)}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
+              <Box style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Size</TableCell>
+                        <TableCell>Actions</TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                      {files.map((file, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{file.name}</TableCell>
+                          <TableCell>{formatFileSize(file.size)}</TableCell>
+                          <TableCell>
+                            <IconButton onClick={() => handleRemoveFile(file)}>
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Box>
             </Grid>
           </Grid>
         </Paper>
       </Container>
+      <Snackbar open={secondAlert.open} autoHideDuration={8000} onClose={handleCloseSecondAlert}>
+        <Alert onClose={handleCloseSecondAlert} severity={secondAlert.severity} sx={{ width: '100%', marginBottom: '60px' }}>
+          {secondAlert.message}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={alert.open} autoHideDuration={8000} onClose={handleCloseAlert}>
+        <Alert onClose={handleCloseAlert} severity={alert.severity} sx={{ width: '100%' }}>
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
@@ -239,7 +276,7 @@ const paperStyle = {
   borderRadius: '10px',
   boxShadow: '0 6px 20px rgba(0, 0, 0, 0.1)',
   position: 'relative',
-  backgroundColor: '#f5f8fa', // Light blue background for SharePoint
+  backgroundColor: '#f5f8fa',
 };
 
 const textFieldStyle = {
@@ -247,7 +284,7 @@ const textFieldStyle = {
 };
 
 const dropzoneStyle = {
-  border: '2px dashed #ff5722', // Orange border for HubSpot
+  border: '2px dashed #ff5722',
   borderRadius: '10px',
   padding: '2rem',
   textAlign: 'center',
@@ -258,7 +295,7 @@ const buttonStyle = {
   marginTop: '1rem',
   padding: '0.75rem 1.5rem',
   fontSize: '1rem',
-  backgroundColor: '#3f979d', // SharePoint blue
+  backgroundColor: '#3f979d',
   color: '#fff',
 };
 

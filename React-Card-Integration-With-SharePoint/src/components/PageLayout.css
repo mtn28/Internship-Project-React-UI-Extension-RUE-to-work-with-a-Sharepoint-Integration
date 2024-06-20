@@ -1,0 +1,95 @@
+.main-container {
+    background: linear-gradient(135deg, #0078d4 0%, #005a9e 20%, #ff7a59 50%, #31797c 80%);
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: rotateBG 6s linear infinite, pulseBG 6s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes rotateBG {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulseBG {
+    0% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+.auth-card {
+    max-width: 800px; 
+    width: 100;
+    margin: 20px;
+    padding: 0px; 
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    background: white;
+    background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
+    animation: backgroundAnimation 10s infinite alternate;
+    z-index: 2;
+    position: relative;
+}
+
+@keyframes backgroundAnimation {
+    0% {
+        background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
+    }
+    100% {
+        background: linear-gradient(135deg, #f7f7f7 0%, #ffffff 100%);
+    }
+}
+
+.auth-card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.auth-card-header img {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .auth-card-header img:hover {
+    transform: scale(1.05);
+  }
+  
+  
