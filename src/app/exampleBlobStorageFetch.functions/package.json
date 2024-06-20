@@ -7,6 +7,7 @@
     "@azure/storage-blob": "^12.18.0",
     "@hubspot/api-client": "^7.0.1",
     "axios": "^0.27.2",
+    "dotenv": "^16.4.5",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {

@@ -3,7 +3,7 @@
     "fetchFiles": {
       "file": "fetchFiles.js",
       "secrets": [],
-      "npmPackages": ["xml2js"]
+      "npmPackages": ["axios", "xml2js", "dotenv"]
     }
   }
 }

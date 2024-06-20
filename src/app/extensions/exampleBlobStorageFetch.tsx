@@ -20,8 +20,10 @@ const Extension = ({ openIframe }) => {
   const handleClick = () => {
     openIframe({
       uri: "https://react-card-for-upload-to-sharepoint.vercel.app/",
-      height: 640,
-      width: 480,
+      height: '900%',
+      width: '900%',
+      title: 'Upload to SharePoint',
+      flush: true,
     });
   };
 
