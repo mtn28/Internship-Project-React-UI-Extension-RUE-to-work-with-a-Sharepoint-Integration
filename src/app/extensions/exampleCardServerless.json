@@ -1,11 +1,11 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Integration with Azure Blob Storage",
-    "uid": "main_card",
+    "title": "Example Card with a Serverless Function",
+    "uid": "exampleCardServerless",
     "location": "crm.record.tab",
     "module": {
-      "file": "IntegrationAzureBlob.tsx"
+      "file": "exampleCardServerless.jsx"
     },
     "objectTypes": [
       {

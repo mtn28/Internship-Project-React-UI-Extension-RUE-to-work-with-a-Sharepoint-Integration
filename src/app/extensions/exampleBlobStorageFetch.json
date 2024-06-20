@@ -1,11 +1,11 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Example Card",
-    "uid": "get_started_card",
+    "title": "Example Fetch from Azure Blob Storage to a Extension Card",
+    "uid": "exampleBlobStorageFetch",
     "location": "crm.record.tab",
     "module": {
-      "file": "Example.jsx"
+      "file": "exampleBlobStorageFetch.tsx"
     },
     "objectTypes": [
       {

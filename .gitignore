@@ -102,7 +102,5 @@ dist
 # TernJS port file
 .tern-port
 
+# Project-specific configurations
 hubspot.config.yml
-
-.env
-

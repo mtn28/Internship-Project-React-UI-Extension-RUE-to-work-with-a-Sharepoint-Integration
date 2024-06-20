@@ -19,7 +19,7 @@ const Extension = ({ openIframe }) => {
   // Function to handle button click
   const handleClick = () => {
     openIframe({
-      uri: "https://144183980.hs-sites-eu1.com/upload",
+      uri: "https://react-card-for-upload-to-sharepoint.vercel.app/",
       height: 640,
       width: 480,
     });

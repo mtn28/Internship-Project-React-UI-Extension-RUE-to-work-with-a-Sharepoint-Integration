@@ -11,16 +11,19 @@
     "crm": {
       "cards": [
         {
-          "file": "extensions/example-card.json"
+          "file": "extensions/exampleCardServerless.json"
         },
         {
-          "file": "extensions/IntegrationAzureBlob.json"
+          "file": "extensions/exampleBlobStorageFetch.json"
         },
         {
           "file": "extensions/sharepoint.json"
         },
         {
           "file": "extensions/getDocTree.json"
+        },
+        {
+          "file": "extensions/exampleDisplayIframe.json"
         }
       ]
     }

@@ -8,7 +8,7 @@
 
 /* Main container styles */
 .main-container {
-  background: linear-gradient(135deg, #0078d4 0%, #005a9e 33%, #ff7a59 66%, #31797c 100%);
+  background: linear-gradient(135deg, #0078d4 0%, #005a9e 20%, #ff7a59 50%, #31797c 80%);
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -143,4 +143,17 @@ button:focus {
 
 .icon:hover {
   transform: scale(1.05); /* Efeito de zoom quando o mouse passa por cima */
+}
+/* App.css */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f8fa; /* Background color for the whole page */
+}
+
+.scale-down {
+  transform: scale(0.8); /* Scale down the card to 80% of its original size */
+  transform-origin: center; /* Ensure the scaling is from the center */
 }

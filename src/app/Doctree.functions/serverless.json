@@ -15,7 +15,19 @@
       "secrets": [],
       "endpoint": {
         "path": "/download",
-        "method": ["GET"]
+        "method": [
+          "GET"
+        ]
+      }
+    },
+    "upload": {
+      "file": "upload.js",
+      "secrets": [],
+      "endpoint": {
+        "path": "/upload",
+        "method": [
+          "GET"
+        ]
       }
     }
   }

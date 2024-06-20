@@ -1,6 +1,6 @@
 {
   "appFunctions": {
-    "myFunc": {
+    "example-function": {
       "file": "example-function.js",
       "secrets": []
     }

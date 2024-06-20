@@ -5,7 +5,7 @@
     "uid": "auth_card",
     "location": "crm.record.tab",
     "module": {
-      "file": "SharePoint.jsx"
+      "file": "signInSharePoint.jsx"
     },
     "objectTypes": [
       {

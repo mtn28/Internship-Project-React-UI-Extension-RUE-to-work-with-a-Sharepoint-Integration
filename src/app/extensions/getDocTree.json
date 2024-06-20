@@ -1,8 +1,8 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Integration with SharePoint",
-    "uid": "doctree1",
+    "title": "Fetch & Upload to SharePoint",
+    "uid": "doctree",
     "location": "crm.record.tab",
     "module": {
       "file": "getDocTree.jsx"

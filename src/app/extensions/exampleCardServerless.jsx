@@ -25,7 +25,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   // Call serverless function to execute with parameters.
   // The `myFunc` function name is configured inside `serverless.json`
   const handleClick = async () => {
-    const { response } = await runServerless({ name: "myFunc", parameters: { text: text } });
+    const { response } = await runServerless({ name: "example-function", parameters: { text: text } });
     sendAlert({ message: response });
   };
 

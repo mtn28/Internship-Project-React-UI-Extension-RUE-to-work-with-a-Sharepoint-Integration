@@ -17,6 +17,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { CloudUpload as CloudUploadIcon, Delete as DeleteIcon, Publish as PublishIcon } from '@mui/icons-material';
+import axios from 'axios';
 import './App.css';
 
 const formatFileSize = (size) => {
@@ -40,20 +41,29 @@ function App() {
     },
   });
 
-  const handleUpload = () => {
-    // Lógica para upload dos arquivos para SharePoint
-    console.log('Uploading files:', files);
-    console.log('Email:', email);
-    console.log('HubSpot Object Type:', hubspotObjectType);
-    console.log('HubSpot Object ID:', hubspotObjectId);
-
+  const handleUpload = async () => {
     setIsButtonClicked(true);
     setIsUploading(true);
-    // Simulação de upload concluído
-    setTimeout(() => {
+
+    try {
+      const response = await axios.post(`https://<YOUR_API_BASE_URL>/upload`, {
+        email,
+        parentFolderId: hubspotObjectId,
+        files: files.map(file => ({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          content: file
+        }))
+      });
+
+      console.log('Upload successful:', response.data);
+    } catch (error) {
+      console.error('Upload failed:', error);
+    } finally {
       setIsUploading(false);
       setIsButtonClicked(false);
-    }, 2000);
+    }
   };
 
   const handleRemoveFile = (file) => {
@@ -63,13 +73,13 @@ function App() {
   return (
     <div className="main-container">
       <Container maxWidth="md" className="mt-5">
-        <Paper elevation={6} className="paper-container" style={paperStyle}>
+        <Paper elevation={6} className="paper-container scale-down" style={paperStyle}>
           <Box display="flex" justifyContent="space-between" alignItems="center" style={{ position: 'relative' }}>
             <Typography variant="h4" gutterBottom>
               <strong>Upload to SharePoint</strong>
             </Typography>
             <a href="https://findmore.solutions/" target="_blank" rel="noopener noreferrer">
-              <img src="/logo.png" alt="Logo" className="logo" /> {/* Adicione a classe CSS logo */}
+              <img src="/logo.png" alt="Logo" className="logo" />
             </a>
           </Box>
           <Grid container spacing={3}>

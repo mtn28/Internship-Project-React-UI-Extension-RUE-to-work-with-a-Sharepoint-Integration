@@ -69,9 +69,11 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
 
   const handleUploadClick = () => {
     openIframe({
-      uri: "https://upload-to-sharepoint.vercel.app/",
-      height: 900,
-      width: 900,
+      uri: "https://react-card-for-upload-to-sharepoint.vercel.app/",
+      height: '900%',
+      width: '900%',
+      title: 'Upload to SharePoint',
+      flush: true,
     });
   };
 

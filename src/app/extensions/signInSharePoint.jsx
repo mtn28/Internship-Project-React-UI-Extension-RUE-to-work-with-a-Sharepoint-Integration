@@ -7,7 +7,7 @@ const Extension = ({ openIframe }) => {
 
   const handleClick = () => {
     openIframe({
-      uri: "https://sharepoint-integration-with-hubspot-1.onrender.com/",
+      uri: "https://react-card-for-authentication-between-hubspot-sharepoint.vercel.app/",
       height: 1000,
       width: 1000,
       title: 'SignIn with Microsoft',
