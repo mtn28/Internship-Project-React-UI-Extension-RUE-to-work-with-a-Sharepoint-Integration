@@ -19,10 +19,10 @@ const Extension = ({ openIframe }) => {
   // Function to handle button click
   const handleClick = () => {
     openIframe({
-      uri: "https://react-card-for-upload-to-sharepoint.vercel.app/",
+      uri: "https://upload-to-sharepoint.vercel.app/",
       height: '900%',
       width: '900%',
-      title: 'Upload to SharePoint',
+      title: 'Upload to Azure Blob Storage',
       flush: true,
     });
   };

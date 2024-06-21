@@ -69,14 +69,14 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
 
   const handleUploadClick = () => {
     openIframe({
-      uri: "https://react-card-for-upload-to-sharepoint.vercel.app/",
-      height: '900%',
-      width: '900%',
+      uri: "https://upload-to-sharepoint.vercel.app/",
+      height: 1000,
+      width: 1000,
       title: 'Upload to SharePoint',
       flush: true,
     });
   };
-
+project 
   const formatFileSize = (size) => {
     if (size < 1024) return `${size} B`;
     else if (size < 1048576) return `${(size / 1024).toFixed(2)} KB`;
