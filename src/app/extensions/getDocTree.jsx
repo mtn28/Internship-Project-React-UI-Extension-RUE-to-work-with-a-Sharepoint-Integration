@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Input, Link, hubspot, Flex, Table, TableHead, TableRow, TableHeader, TableBody, TableCell } from '@hubspot/ui-extensions';
+import React, { useState } from 'react';
+import { Button, Input, Link, hubspot, Flex, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Card, LoadingSpinner, Alert, Box, Image, Text } from '@hubspot/ui-extensions';
 
 const headerStyle = {
   fontSize: '0.8em'
@@ -20,13 +20,17 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
   const [objectId, setObjectId] = useState('');
   const [data, setData] = useState(null);
   const [downloadUrls, setDownloadUrls] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleDownload = async (itemId) => {
     try {
+      setLoading(true);
       const result = await runServerless({
         name: 'download',
         parameters: { itemId, email }
       });
+      setLoading(false);
 
       if (result.response.statusCode === 200) {
         const fetchedDownloadUrl = result.response.body.data.trim();
@@ -37,6 +41,7 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
         sendAlert({ message: 'Erro ao obter URL de download...', type: 'error' });
       }
     } catch (error) {
+      setLoading(false);
       sendAlert({ message: 'Erro ao obter URL de download...', type: 'error' });
       console.error('Erro:', error);
     }
@@ -44,6 +49,7 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
 
   const handleClick = async () => {
     try {
+      setLoading(true);
       const result = await runServerless({
         name: 'getDocTree',
         parameters: {
@@ -52,6 +58,7 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
           hubspotObjectId: objectId
         }
       });
+      setLoading(false);
 
       if (result.response.statusCode === 200) {
         setData(result.response.body.data);
@@ -62,6 +69,7 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
         sendAlert({ message: 'Erro ao buscar dados...', type: 'error' });
       }
     } catch (error) {
+      setLoading(false);
       sendAlert({ message: 'Erro ao buscar dados...', type: 'error' });
       console.error('Erro:', error);
     }
@@ -76,7 +84,7 @@ const Extension = ({ context, runServerless, sendAlert, openIframe }) => {
       flush: true,
     });
   };
-project 
+
   const formatFileSize = (size) => {
     if (size < 1024) return `${size} B`;
     else if (size < 1048576) return `${(size / 1024).toFixed(2)} KB`;
@@ -91,37 +99,98 @@ project
   };
 
   return (
-    <Flex direction="column" align="start" gap="medium">
-      <Input
-        name="Email"
-        label="Email:"
-        onInput={(value) => setEmail(value)}
-      />
-      <Input
-        name="Object Type"
-        label="Folder Name:"
-        onInput={(value) => setObjectType(value)}
-      />
-      <Input
-        name="Object Id"
-        label="Sub Folder"
-        onInput={(value) => setObjectId(value)}
-      />
-      <Button type="submit" onClick={handleClick}>
-        List Content
-      </Button>
-      <Button type="button" onClick={handleUploadClick}>
-        Upload Files
-      </Button>
+    <Flex direction="column" align="start" gap="medium" style={{ padding: '16px', width: '100%' }}>
+      {error && <Alert type="error" title="Erro" description={error} />}
+      <Card>
+      <Card>
+         <Text>
+        This UI extension is designed to fetch files and folders from your Microsoft SharePoint account.
+        </Text>
+    </Card>
+        <Card>
+          <Text>
+            Additionally, it provides an option to upload files directly from HubSpot to your Microsoft SharePoint account.       
+            </Text>
+        </Card>
+        <Input
+          name="Email"
+          label="Email:"
+          onInput={(value) => setEmail(value)}
+          style={{ marginBottom: '16px', width: '100%' }}
+          placeholder="Enter your email"
+        />
+        <Input
+          name="Object Type"
+          label="Folder Name:"
+          onInput={(value) => setObjectType(value)}
+          style={{ marginBottom: '16px', width: '100%' }}
+          placeholder="Enter the folder name"
+        />
+        <Input
+          name="Object Id"
+          label="Sub Folder"
+          onInput={(value) => setObjectId(value)}
+          style={{ marginBottom: '16px', width: '100%' }}
+          placeholder="Enter the subfolder name"
+        />
+        <Card>
+          <Text></Text>
+        </Card>
+        <Card>
+        <Text>
+        With the submitted information, the files and folders will be listed once you click the{' '}
+        <Text inline={true} format={{ fontWeight: 'bold' }}>
+          List Content
+        </Text>{' '}
+        button.
+      </Text>
+        </Card>
+        <Button type="submit" onClick={handleClick}>
+          List Content
+        </Button>
+        {loading && <LoadingSpinner />}
+        <Card>
+          <Text></Text>
+        </Card>
+        <Card>
+        <Text>
+        The{' '}
+        <Text inline={true} format={{ fontWeight: 'bold' }}>
+          Upload Files
+        </Text>{' '}
+        button is used to send files to SharePoint. Clicking on it will open a modal iframe to perform the upload service.
+      </Text>
+        </Card>
+        <Button type="button" onClick={handleUploadClick}>
+          Upload Files
+        </Button>
+        <Card>
+          <Text></Text>
+        </Card>
+        <Card>
+        <Card>
+          <Text></Text>
+        </Card>
+        <Card>
+          <Text></Text>
+        </Card>
+        <Card>
+          <Text>‎ </Text>
+        </Card>
+        <Text inline={true} format={{ fontWeight: 'bold' }}>
+        Here you can see the listed files and folders, with the relevant information and download option:
+        </Text>
+        </Card>
+      </Card>
       {data && (
-        <Table bordered={true}>
+        <Table bordered={true} style={{ marginTop: '24px', width: '100%' }}>
           <TableHead>
             <TableRow>
-              <TableHeader style={headerStyle}>Nome</TableHeader>
-              <TableHeader style={headerStyle}>Tipo</TableHeader>
-              <TableHeader style={headerStyle}>Tamanho</TableHeader>
-              <TableHeader style={headerStyle}>Extensão</TableHeader>
-              <TableHeader style={headerStyle}>Data de Inserção</TableHeader>
+              <TableHeader style={headerStyle}>Name</TableHeader>
+              <TableHeader style={headerStyle}>Type</TableHeader>
+              <TableHeader style={headerStyle}>Size</TableHeader>
+              <TableHeader style={headerStyle}>File Extension</TableHeader>
+              <TableHeader style={headerStyle}>Added Date</TableHeader>
               <TableHeader style={headerStyle}>Download</TableHeader>
             </TableRow>
           </TableHead>
@@ -133,7 +202,7 @@ project
                     {item.name.split('.')[0]}
                   </Link>
                 </TableCell>
-                <TableCell>{item.type === 'file' ? 'Ficheiro 📄' : 'Pasta 📁'}</TableCell>
+                <TableCell>{item.type === 'file' ? 'File 📄' : 'Folder 📁'}</TableCell>
                 <TableCell>{item.size ? formatFileSize(item.size) : 'N/A'}</TableCell>
                 <TableCell>{getFileExtension(item)}</TableCell>
                 <TableCell>{new Date(item.createdDateTime).toLocaleDateString()}</TableCell>
@@ -144,7 +213,7 @@ project
                         Download
                       </Link>
                     ) : (
-                      <Button onClick={() => handleDownload(item.id)}>Get Download Link</Button>
+                      <Button onClick={() => handleDownload(item.id)} color="link">Get Download Link</Button>
                     )
                   ) : (
                     'N/A'
@@ -155,8 +224,24 @@ project
           </TableBody>
         </Table>
       )}
+      <Box style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex', gap: '10px' }}>
+        <Image
+          src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Microsoft_logo_-_2012_%28vertical%29.svg"
+          alt="Microsoft"
+          width={40}
+          height={50}
+        />
+        <Image
+          src="https://www.logo.wine/a/logo/SharePoint/SharePoint-Logo.wine.svg"
+          alt="SharePoint"
+          width={60}
+          height={60}
+        />
+      </Box>
     </Flex>
   );
 };
 
 export default Extension;
+
+
