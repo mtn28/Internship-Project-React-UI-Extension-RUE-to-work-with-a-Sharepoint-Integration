@@ -26,19 +26,14 @@
   width: 200%;
   height: 200%;
   background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: rotateBG 6s linear infinite, pulseBG 6s ease-in-out infinite;
+  /* Removed the rotateBG animation */
+  animation: pulseBG 6s ease-in-out infinite;
   z-index: 1;
 }
 
-@keyframes rotateBG {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+/* Removed the rotateBG keyframes */
 
+/* Keyframes for pulseBG */
 @keyframes pulseBG {
   0% {
     opacity: 0.6;
@@ -57,22 +52,11 @@
   width: 100%;
   margin: 20px;
   padding: 20px; /* Adicionar padding para manter o espaçamento interno */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.8);
   border-radius: 15px;
   background: white;
-  background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
-  animation: backgroundAnimation 10s infinite alternate;
   z-index: 2;
   position: relative;
-}
-
-@keyframes backgroundAnimation {
-  0% {
-    background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
-  }
-  100% {
-    background: linear-gradient(135deg, #f7f7f7 0%, #ffffff 100%);
-  }
 }
 
 /* Dropzone styles */
@@ -81,7 +65,7 @@
 }
 
 .dropzone:active {
-  background-color: #ff7043; /* Darker orange for HubSpot */
+  background-color: #ff7043; /* Darker orange for HubSpot */  
 }
 
 .dropzone.uploading {
@@ -90,7 +74,7 @@
 
 /* Button styles */
 .buttonClicked {
-  border: 2px solid #3f979d !important;
+  border: 2px solid #2a6c71 !important;
   outline: none !important; /* Remove default outline */
 }
 
@@ -121,7 +105,7 @@ button:focus {
 
 /* Logo styles */
 .logo {
-  width: 130px; /* Aumentar a largura para 70px */
+  width: 130px; /* Aumentar a largura para 130px */
   height: auto; /* Manter a proporção */
   position: absolute;
   top: 10px;
@@ -135,8 +119,8 @@ button:focus {
 
 /* Icon styles */
 .icon {
-  width: 40px;
-  height: 40px;
+  width: 50px; /* Aumentar a largura para 50px */
+  height: 50px; /* Aumentar a altura para 50px */
   object-fit: contain;
   transition: transform 0.2s ease-in-out; /* Adiciona transição para o efeito de zoom */
 }
@@ -144,6 +128,7 @@ button:focus {
 .icon:hover {
   transform: scale(1.05); /* Efeito de zoom quando o mouse passa por cima */
 }
+
 /* App.css */
 .main-container {
   display: flex;
@@ -154,6 +139,48 @@ button:focus {
 }
 
 .scale-down {
-  transform: scale(0.65); /* Scale down the card to 80% of its original size */
+  transform: scale(0.90); /* Scale down the card to 80% of its original size */
   transform-origin: center; /* Ensure the scaling is from the center */
+}
+
+.icon {
+  height: 40px; /* Ajustar altura para 50px */
+  width: 40px; /* Ajustar largura para 50px */
+  transition: transform 0.3s;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+.cancel-icon {
+  transition: transform 0.1s ease-in-out;
+}
+
+.cancel-icon:hover {
+  transform: scale(1.1); /* Aumentar de tamanho quando o mouse passa por cima */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.custom-spinner {
+  border: 2.5px solid rgba(60, 60, 60, 0.2); /* Light grey */
+  border-top: 2.5px solid #ff5722; /* Orange */
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  animation: spin 0.8s linear infinite;
+}
+
+.custom-spinner-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

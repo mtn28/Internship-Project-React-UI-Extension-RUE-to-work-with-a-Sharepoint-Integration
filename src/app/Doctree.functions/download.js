@@ -6,8 +6,9 @@ exports.main = async (context = {}) => {
         'Content-Type': 'application/json'
     };
 
-    const { itemId, email } = context.parameters;
-    
+    const { itemId } = context.parameters;
+    const email = 'michael.nunes@findmore.eu';
+
     if (!email) {
         return {
             statusCode: 404,
@@ -41,18 +42,23 @@ exports.main = async (context = {}) => {
             throw new Error('Download URL is undefined or missing');
         }
 
-        const decodeDownloadUrl = decodeURIComponent(downloadUrl);
-        console.log("Decoded Download URL:", decodeDownloadUrl);
+        const decodedDownloadUrl = decodeURIComponent(downloadUrl);
+        console.log("Decoded Download URL:", decodedDownloadUrl);
 
         return {
             statusCode: 200,
             body: {
                 message: 'Download URL successfully fetched!',
-                data: decodeDownloadUrl
+                data: decodedDownloadUrl
             }
         };
     } catch (error) {
         console.error(`Error fetching download URL for itemId: ${itemId}`, error.message);
+        if (error.response) {
+            console.error('Response data:', error.response.data);
+            console.error('Response status:', error.response.status);
+            console.error('Response headers:', error.response.headers);
+        }
         return {
             statusCode: 500,
             body: { message: `Error fetching download URL: ${error.message}` }

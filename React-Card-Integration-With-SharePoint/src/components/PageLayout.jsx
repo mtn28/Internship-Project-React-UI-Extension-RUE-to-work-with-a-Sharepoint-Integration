@@ -52,15 +52,10 @@ export const PageLayout = () => {
                         </Card.Title>
                         <Card.Text className="text-center" style={{ fontSize: '1.1rem', color: '#555' }} dangerouslySetInnerHTML={{
                             __html: isAuthenticated
-                                ? "Account Integrated with SharePoint"
-                                : "By clicking the <strong>Integrate</strong> button, you will be redirected to the Microsoft Sign-In page.<br/><br/>There you should <strong>Sign In</strong> to integrate your HubSpot account with SharePoint"
+                                ? "By clicking the <strong>Disintegrate</strong> button, your HubSpot account will no longer be integrated with SharePoint."
+                                : "By clicking the <strong>Integrate</strong> button, you will be redirected to the Microsoft Sign-In page.<br/><br/>There you should <strong>Sign In</strong> to integrate your HubSpot account with SharePoint."
                         }}>
                         </Card.Text>
-
-                        {isAuthenticated && (
-                            <Card.Text className="text-center" style={{ fontSize: '1.1rem', color: '#555' }} dangerouslySetInnerHTML={{ __html: "By clicking the <strong>Disintegrate</strong> button, your HubSpot account will no longer be integrated with SharePoint." }}>
-                            </Card.Text>
-                        )}
                         <div className="d-flex justify-content-center mt-4">
                             {isAuthenticated ? <SignOutButton className="btn btn-danger px-4" /> : <SignInButton className="btn btn-success px-4" />}
                         </div>

@@ -6,34 +6,17 @@ exports.main = async (context = {}) => {
         'Content-Type': 'application/json'
     };
 
-    const { email, hubspotObjectType, hubspotObjectId } = context.parameters;
+    const email = 'michael.nunes@findmore.eu';
+    const hubspotObjectType = 'Contacts';
+    const hubspotObjectId = 144183980;
 
-    if (!email) {
-        return {
-            statusCode: 404,
-            body: { message: 'Email is missing...' }
-        };
-    }
-
-    if (!hubspotObjectType) {
-        return {
-            statusCode: 404,
-            body: { message: 'ObjectType is missing...' }
-        };
-    }
-
-    let requestUrl = `${url}?email=${email}&hubspotObjectType=${hubspotObjectType}`;
-    
-    if (hubspotObjectId) {
-        requestUrl += `&hubspotObjectId=${hubspotObjectId}`;
-    }
+    let requestUrl = `${url}?email=${email}&hubspotObjectType=${hubspotObjectType}&hubspotObjectId=${hubspotObjectId}`;
 
     try {
         const response = await axios.get(requestUrl, { headers });
 
         const files = response.data.data;
 
-        // Notify success
         return {
             statusCode: 200,
             body: {
@@ -43,7 +26,7 @@ exports.main = async (context = {}) => {
         };
     } catch (error) {
         console.error('Error fetching docTree:', error);
-        if (error.response && error.response.status == 401){
+        if (error.response && error.response.status === 401) {
             return {
                 statusCode: 401,
                 body: { message: 'AccessToken is invalid or expired' }

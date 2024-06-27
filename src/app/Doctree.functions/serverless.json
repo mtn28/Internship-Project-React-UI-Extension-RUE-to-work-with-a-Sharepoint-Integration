@@ -19,16 +19,6 @@
           "GET"
         ]
       }
-    },
-    "upload": {
-      "file": "upload.js",
-      "secrets": [],
-      "endpoint": {
-        "path": "/upload",
-        "method": [
-          "GET"
-        ]
-      }
     }
   }
 }

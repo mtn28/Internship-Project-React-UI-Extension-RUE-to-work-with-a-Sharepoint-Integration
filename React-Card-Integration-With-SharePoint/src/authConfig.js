@@ -7,7 +7,7 @@ export const msalConfig = {
     auth: {
         clientId: clientId,
         authority: `https://login.microsoftonline.com/${tenantId}`,
-        redirectUri: /*"http://localhost:3000"*/ "https://react-card-for-authentication-between-hubspot-sharepoint.vercel.app/",
+        redirectUri: /*"http://localhost:3000"*/ "https://microsoft-sharepoint-authentication.vercel.app/",
     },
     cache: {
         cacheLocation: "sessionStorage",

@@ -18,10 +18,15 @@ const Extension = ({ openIframe }) => {
   return (
     <>
       <Flex direction="column" align="start" gap="medium" style={{ position: 'relative' }}>
-        <Text>
-          Clicking the button will open a modal dialog with an iframe that
-          lets you sign in with your Microsoft account in order to access your SharePoint instances.
-        </Text>
+      <Text>
+  Clicking the{' '}
+  <Text inline={true} format={{ fontWeight: 'bold' }}>
+    Sign In
+  </Text>{' '}
+  button will open a modal iframe. 
+</Text>
+<Text>Use the modal iframe to sign in with your Microsoft account and access your SharePoint instances.</Text>
+
 
         <Box>
           <Button type="submit" onClick={handleClick}>

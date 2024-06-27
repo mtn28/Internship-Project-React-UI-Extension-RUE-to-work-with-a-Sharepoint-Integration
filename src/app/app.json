@@ -17,7 +17,7 @@
           "file": "extensions/exampleBlobStorageFetch.json"
         },
         {
-          "file": "extensions/sharepoint.json"
+          "file": "extensions/signInSharePoint.json"
         },
         {
           "file": "extensions/getDocTree.json"
