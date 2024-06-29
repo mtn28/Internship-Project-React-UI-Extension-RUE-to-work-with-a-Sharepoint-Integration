@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Button, Text, Box, Flex, hubspot, LoadingSpinner, Alert, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@hubspot/ui-extensions";
+import { Link, Button, Text, Box, Flex, hubspot,
+LoadingSpinner, Alert, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@hubspot/ui-extensions";
 
 // Define the Files interface
 interface Files {
